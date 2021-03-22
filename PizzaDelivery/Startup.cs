@@ -1,6 +1,7 @@
 using System.Diagnostics.SymbolStore;
 using System.Text;
 using EFCore.Context;
+using EFCore.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PizzaDelivery.Configuration;
 using Microsoft.AspNetCore.Identity.UI;
+using Repositories.Interfaces;
+using Repositories.Repositories;
 
 namespace PizzaDelivery
 {
@@ -58,9 +61,11 @@ namespace PizzaDelivery
                 };
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EFContext>();
-            
+
+            //Repositories injection
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddSwaggerGen(options =>
                 {
