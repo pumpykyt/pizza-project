@@ -1,4 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using DTO.Requests.Product;
+using DTO.Responses.Product;
+using EFCore.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interfaces;
 
@@ -9,10 +14,12 @@ namespace PizzaDelivery.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _products;
+        private readonly IMapper _mapper;
 
-        public ProductController(IProductRepository products)
+        public ProductController(IProductRepository products, IMapper mapper)
         {
             _products = products;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -22,7 +29,8 @@ namespace PizzaDelivery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            return Ok();
+            var result = await _products.GetAllProductsAsync();
+            return Ok(_mapper.Map<IEnumerable<Product>,IEnumerable<ProductResponseDTO>>(result));
         }
         
         /// <summary>
@@ -33,7 +41,8 @@ namespace PizzaDelivery.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            return Ok();
+            var result = await _products.GetProductByIdAsync(id);
+            return Ok(_mapper.Map<Product, ProductResponseDTO>(result));
         }
         
         /// <summary>
@@ -41,9 +50,10 @@ namespace PizzaDelivery.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateProduct()
+        public async Task<IActionResult> CreateProduct([FromBody] ProductPostDTO model)
         {
-            return Ok();
+            var result = await _products.CreateProductAsync(_mapper.Map<ProductPostDTO, Product>(model));
+            return Ok(result);
         }
     }
 }

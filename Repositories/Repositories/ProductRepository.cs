@@ -29,9 +29,16 @@ namespace Repositories.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
             return await _context.Products.SingleOrDefaultAsync(t => t.Id == id);
+        }
+
+        public async Task<Product> DeleteProductByIdAsync(int id)
+        {
+            var toDelete = await _context.Products.SingleOrDefaultAsync(t => t.Id == id);
+            _context.Products.Remove(toDelete);
+            return toDelete;
         }
     }
 }

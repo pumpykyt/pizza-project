@@ -13,6 +13,7 @@ namespace EFCore.Entities
         public int Weight { get; set; }
         [Required]
         public int Price { get; set; }
+        public string Photo { get; set; }
         public virtual ICollection<Pizza> Pizzas { get; set; }
     }
 }

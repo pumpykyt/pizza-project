@@ -1,0 +1,22 @@
+<div class="bg">
+  <div class="form">
+    <p class="auth-title">Sign up</p>
+    <input required [(ngModel)]="user.email" type="email" pInputText class="auth-input email-input" placeholder="Email" />
+    <input required [(ngModel)]="user.username" type="email" pInputText class="auth-input password-input" placeholder="Username" />
+    <input required [(ngModel)]="user.firstname" type="email" pInputText class="auth-input password-input" placeholder="Firstname" />
+    <input required [(ngModel)]="user.lastname" type="email" pInputText class="auth-input password-input" placeholder="Lastname" />
+
+    <div class="gender">
+      <p-radioButton class="radio-btn" inputId="male" name="genderGroup" value="Male" [(ngModel)]="selectedGender">
+      </p-radioButton>
+      <label class="gender-label" for="male">Male</label>
+      <p-radioButton class="radio-btn" inputId="female" name="genderGroup" value="Female" [(ngModel)]="selectedGender">
+      </p-radioButton>
+      <label class="gender-label" for="female">Female</label>
+    </div>
+
+    <input minlength="6" [(ngModel)]="user.password" type="password" pInputText class="auth-input password-input" placeholder="Password" />
+    <input type="password" pInputText class="auth-input password-input" placeholder="Confirm password" />
+    <button (click)="onSubmit()" class="auth-btn" pButton type="button" label="Register"></button>
+  </div>
+</div>

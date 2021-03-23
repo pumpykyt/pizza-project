@@ -67,6 +67,8 @@ namespace PizzaDelivery.Controllers
                 };
 
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+                var createdUser = await _userManager.FindByEmailAsync(newUser.Email);
+                var roleResult = await _userManager.AddToRoleAsync(createdUser, "User");
                 if (isCreated.Succeeded)
                 {
                     var token = GenerateJwtToken(newUser);
@@ -146,6 +148,7 @@ namespace PizzaDelivery.Controllers
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+            var userRoles = _userManager.GetRolesAsync(user).Result;
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -153,12 +156,12 @@ namespace PizzaDelivery.Controllers
                    new Claim("id",user.Id),
                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                   new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                   new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                   new Claim("role", userRoles[0])
                 }),
                 Expires = DateTime.Now.AddHours(24),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
             var jwtToken = jwtTokenHandler.WriteToken(token);
             return jwtToken;

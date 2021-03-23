@@ -12,5 +12,6 @@ namespace EFCore.Context
         public virtual DbSet<Pizza> Pizzas { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Direction> Directions { get; set; }
+
     }
 }

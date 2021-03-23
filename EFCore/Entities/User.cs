@@ -12,9 +12,9 @@ namespace EFCore.Entities
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
-        public string Photo { get; set; }
         [Required]
         public string Gender { get; set; }
+        public string Photo { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Direction> Directions { get; set; }
     }

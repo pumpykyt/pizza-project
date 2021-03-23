@@ -1,0 +1,56 @@
+.bg{
+    min-height: 100vh;
+    padding-top: 150px;
+    background: url('./../../assets/register.jpg') center no-repeat;
+}
+
+.form{
+    text-align: center;
+    background: #74ebd5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    margin-right: auto;
+    width: 30%;
+    margin-left: auto;
+    border-radius: 15px;
+    padding-top: 100px;
+    padding-bottom: 150px;
+    -webkit-box-shadow: 5px 5px 30px -6px #000000, 5px 5px 30px -12px rgba(0,0,0,0.69); 
+    box-shadow: 5px 5px 30px -6px #000000, 5px 5px 30px -12px rgba(0,0,0,0.69);
+}
+
+.auth-title{
+    font-weight: 500;
+    font-size: 36px;
+    color: black;
+    text-align: center;
+}
+
+.auth-input{
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.password-input{
+    margin-top: 20px;
+}
+
+.auth-btn{
+    width: 300px;
+    margin-top: 10px;
+}
+
+.gender-label{
+    align-self: center;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 5px;
+    margin: 0 !important;
+}
+
+.gender{
+    margin-top: 20px;
+}

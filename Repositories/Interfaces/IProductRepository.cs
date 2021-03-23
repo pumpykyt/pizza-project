@@ -7,7 +7,8 @@ namespace Repositories.Interfaces
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetAllProductsAsync();
-        Task<Product> GetProductById(int id);
+        Task<Product> GetProductByIdAsync(int id);
         Task<Product> CreateProductAsync(Product product);
+        Task<Product> DeleteProductByIdAsync(int id);
     }
 }
