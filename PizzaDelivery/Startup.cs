@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PizzaDelivery.Configuration;
 using Microsoft.AspNetCore.Identity.UI;
+using PizzaDelivery.Configuration.Mapper;
 using Repositories.Interfaces;
 using Repositories.Repositories;
 
@@ -57,15 +58,19 @@ namespace PizzaDelivery
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
-                    RequireExpirationTime = false
+                    RequireExpirationTime = true
                 };
             });
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EFContext>();
+            
+            //Automapper
+            services.AddAutoMapper(typeof(MappingProfile));
 
             //Repositories injection
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddSwaggerGen(options =>
                 {
